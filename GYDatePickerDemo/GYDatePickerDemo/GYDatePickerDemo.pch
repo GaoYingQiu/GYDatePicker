@@ -1,0 +1,25 @@
+//
+//  GYDatePickerDemo.pch
+//  GYDatePickerDemo
+//
+//  Created by qiugaoying on 2019/2/11.
+//  Copyright © 2019年 qiugaoying. All rights reserved.
+//
+
+#ifndef GYDatePickerDemo_pch
+#define GYDatePickerDemo_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import <Masonry.h>
+#import "NSDate+Category.h"
+#import "UIColor+Extension.h"
+
+#define SCREEN_W   [UIScreen mainScreen].bounds.size.width
+#define SCREEN_H  [UIScreen mainScreen].bounds.size.height
+
+#define LJFontWidthScale   ((CGFloat)((SCREEN_W < SCREEN_H ? SCREEN_W :SCREEN_H) / 375.0))  // 375
+#define LJFontRegularText(fsize)  [UIFont fontWithName:@"PingFangSC-Regular" size:(fsize * LJFontWidthScale)]
+
+#endif /* GYDatePickerDemo_pch */
