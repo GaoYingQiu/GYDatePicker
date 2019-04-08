@@ -9,6 +9,12 @@
 
 #import "GYDateSimpleSheetView.h"
 
+#define GYSCREEN_W   [UIScreen mainScreen].bounds.size.width
+#define GYSCREEN_H  [UIScreen mainScreen].bounds.size.height
+
+#define GYFontWidthScale   ((CGFloat)((GYSCREEN_W < GYSCREEN_H ? GYSCREEN_W :GYSCREEN_H) / 375.0))  // 375
+#define GYFontRegularText(fsize)  [UIFont fontWithName:@"PingFangSC-Regular" size:(fsize * GYFontWidthScale)]
+
 @interface GYDateSimpleSheetView ()<UIPickerViewDataSource,UIPickerViewDelegate>
 
 @property (nonatomic,strong) UIButton *doneBtn;
@@ -85,7 +91,7 @@
  
     [UIView animateWithDuration:0.3
                      animations:^{
-                        self.containerView.frame = CGRectMake(0, SCREEN_H - (216 + 50), SCREEN_W ,  216 + 50);
+                        self.containerView.frame = CGRectMake(0, GYSCREEN_H - (216 + 50), GYSCREEN_W ,  216 + 50);
                      }];
 }
 
@@ -121,7 +127,7 @@
     }];
     
     UILabel *titleLabel = [[UILabel alloc]init];
-    titleLabel.font = LJFontRegularText(18);
+    titleLabel.font = GYFontRegularText(18);
     titleLabel.textColor = [UIColor blackColor];
     titleLabel.text= self.title;
     titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -153,7 +159,7 @@
 -(void)touchActionHideView
 {
     //取消； （如果选择的是开始时间，取消后，需把结束时间归位： endDate_before有的情况下，且statu ==1）
-    NSDictionary *dic = @{@"date":self.orignSelectedDate,@"endDate_before":self.orignSelectedEndDateStr,@"statu":self.tag==2000? @1:@0};
+    NSDictionary *dic = @{@"date":self.orignSelectedDate?:@"",@"endDate_before":self.orignSelectedEndDateStr?:@"",@"statu":self.tag==2000? @1:@0};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"FilterDateValueChangedEvent" object:dic];
     
     if(self.selectedDate && self.actionDateDoneBlock){
@@ -182,7 +188,7 @@
         [_doneBtn setTitle:@"确定" forState:UIControlStateNormal];
         _doneBtn.tag = 200;
         [_doneBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _doneBtn.titleLabel.font = LJFontRegularText(16);
+        _doneBtn.titleLabel.font = GYFontRegularText(16);
         [_doneBtn addTarget:self action:@selector(doneAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _doneBtn;
@@ -198,7 +204,7 @@
                     forState:UIControlStateNormal];
         _cancelBtn.tag = 100;
         [_cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _cancelBtn.titleLabel.font = LJFontRegularText(16);
+        _cancelBtn.titleLabel.font = GYFontRegularText(16);
         [_cancelBtn addTarget:self action:@selector(doneAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cancelBtn;
@@ -217,7 +223,7 @@
     
     NSInteger startYear = self.maxYearValue;
     if(self.maxYearValue != [self.minimumDate year]){
-        startYear = self.maxYearValue -1;
+        startYear = [self.minimumDate year];
     }
     for (NSInteger i=startYear; i<=self.maxYearValue; i++) {
         [self.yearArray addObject:[NSString stringWithFormat:@"%ld",i]];
@@ -424,7 +430,7 @@
 
     UILabel *label = [[UILabel alloc]init];
     [label setTextAlignment:NSTextAlignmentCenter];
-    [label setFont:LJFontRegularText(20)];
+    [label setFont: GYFontRegularText(20)];
     [label setText:title];
     [label setTextColor:[UIColor blackColor]];
     return label;
