@@ -4,4 +4,4 @@
 ![图片1](http://qyanblog.oss-cn-shenzhen.aliyuncs.com/datePicker1.PNG)
 
 ### 选择生日 ###
-![图片2](http://qyanblog.oss-cn-shenzhen.aliyuncs.com/IMG_2503.PNG)
+![图片2](http://qyanblog.oss-cn-shenzhen.aliyuncs.com/datePicker_birth.PNG)
